@@ -1,34 +1,49 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useDrag } from 'react-dnd';
-import { Card } from 'react-bootstrap';
+import { Card, Button, Row, Col } from 'react-bootstrap';
 
-const CardJob = ({ item }) => {
-	const [{ isDragging }, drag] = useDrag({
-		item: { type: 'Card', id: item.id },
-		collect: (monitor) => ({
-			isDragging: !!monitor.isDragging(),
-		}),
+import { MyContext } from '../../App';
+
+const CardJob = ({ data, index, onRemoveJob }) => {
+	const [collectedProps, drag] = useDrag({
+		item: { type: 'Card', id: data.id, index },
+		collect: (monitor, props) => {
+			return { isDragging: !!monitor.isDragging() };
+		},
 	});
+
+	const appContext = useContext(MyContext);
+
 	return (
 		<Card
 			ref={drag}
-			key={item.id}
+			key={data.id}
 			style={{
 				marginBottom: 8,
-				cursor: 'pointer',
-				opacity: isDragging ? 0.5 : 1,
+				cursor: 'move',
+				opacity: collectedProps?.isDragging ? 0.5 : 1,
 			}}>
 			<Card.Body>
-				<Card.Title>{item.title}</Card.Title>
-				<Card.Text>{item.description}</Card.Text>
+				<Row>
+					<Col xs={8}>
+						<Card.Title>{data.title}</Card.Title>
+					</Col>
+					<Col
+						xs={4}
+						style={{ display: 'flex', justifyContent: 'flex-end' }}
+						onClick={() => appContext.removeTask(data.id)}>
+						<Button variant='danger'>X</Button>
+					</Col>
+				</Row>
 			</Card.Body>
 		</Card>
 	);
 };
 
 CardJob.propTypes = {
-	item: PropTypes.object.isRequired,
+	data: PropTypes.object.isRequired,
+	index: PropTypes.number.isRequired,
 };
 
 export default CardJob;
