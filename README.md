@@ -11,4 +11,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### Screen Demo App
 
-<img width="1403" alt="Screen Shot 2020-07-05 at 10 13 24 AM" src="https://user-images.githubusercontent.com/49889553/86524788-11774100-bea9-11ea-9a72-1520cb7d3b43.png">
+<img width="1403" alt="Screen Shot 2020-07-05 at 10 13 24 AM" src="https://user-images.githubusercontent.a/49889553/86524819-79c62280-bea9-11ea-9925-05ed754bb90d.png">
